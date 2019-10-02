@@ -30,7 +30,7 @@ Play_status = 0
 Максимальная длинна 30 символов, не должно содержать пробельных символов, запятых и быть строго в нижнем регистре.
 Имя плагина является его идентификатором и должно быть уникально.
 """
-NAME = 'gpio'
+NAME = 'apa-led'
 """
 Обязательно. Версия API под которую написан плагин, тип - int.
 Если оно меньше config.ConfigHandler.API то плагин не будет загружен, а в лог будет выдано сообщение.
@@ -40,7 +40,7 @@ API не увеличивается при добавлении новых ме�
 Если API не используется или вам все равно, можно задать заведомо большое число (999999).
 """
 API = 30
-SETTINGS = 'gpio_config'
+SETTINGS = 'apa-led_config'
 
 
 class Pixels:
@@ -146,16 +146,16 @@ class Main:
 
         if name == 'start_talking':
             pixels.speak()
-            self._log('start_talking LED1 on')
+            self._log('start_talking')
         elif name == 'stop_talking':
             pixels.off()
-            self._log('stop_talking LED1 off')
+            self._log('stop_talking')
         elif name == 'start_record':
             pixels.think()
-            self._log('start_record LED2 on')
+            self._log('start_record')
         elif name == 'stop_record':
             pixels.off()
-            self._log('stop_record LED2 off')
+            self._log('stop_record')
 
     def _log(self,text):
         if self._settings['LOG_on']==1:
@@ -165,7 +165,7 @@ class Main:
 
     def _get_settings(self) -> dict:
 
-        def_cfg = {'led_on': 1,'board':'Respeaker', 'LED1':11, 'LED2':12, 'AMP':13, 'LOG_on':0}
+        def_cfg = {'board':'Respeaker', 'LOG_on':0}
         cfg = self.cfg.load_dict(SETTINGS)
         if isinstance(cfg, dict):
             is_ok = True
